@@ -1,8 +1,10 @@
 # ROOT
 
+
 Collection of ROOT scripts and tools
 
-### THlog : ROOT histogramms with logarithmic binning
+
+## THlog : ROOT histogramms with logarithmic binning
 
 ![THlog screenshot](THlog-demo.png)
 
@@ -19,7 +21,8 @@ run demo ROOT script :
 root THlog-demo.cc
 ```
 
-### sndisplay : supernemo calorimeter (and soon tracker ?) display
+
+## sndisplay : supernemo calorimeter (and soon tracker ?) display
 
 ![THlog screenshot](sndisplay.png)
 
