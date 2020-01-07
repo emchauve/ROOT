@@ -4,7 +4,7 @@ Collection of ROOT scripts and tools
 
 ### THlog : ROOT histogramms with logarithmic binning
 
-![THlog screenshot](THlog-demo.png.png)
+![THlog screenshot](THlog-demo.png)
 
 - TH1Flog  : 1D histogram with log X binning
 
