@@ -2,7 +2,7 @@
 
 Collection of ROOT scripts and tools
 
-## THlog : ROOT histogramms with logarithmic binning
+### THlog : ROOT histogramms with logarithmic binning
 
 - TH1Flog  : 1D histogram with log X binning
 
