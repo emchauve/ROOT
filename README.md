@@ -32,3 +32,5 @@ root
 .L sndisplay.cc
 sndisplay_test()
 ```
+
+There is also the option to draw the fiber mapping.

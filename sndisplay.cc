@@ -152,6 +152,52 @@ namespace sndisplay
       it_label->SetTextSize(0.036);
       fr_label->SetTextSize(0.036);
 
+
+      //fiber map:
+      //Main walls
+      TLine* line_h_IT = new TLine(0.25 - 10*mw_sizex, 2*spacery + 9*mw_sizey, 0.25 + 10*mw_sizex, 2*spacery + 9*mw_sizey);
+      fiber_map_lines.push_back(line_h_IT);
+      TLine* line_v_A1A2_IT = new TLine(0.25, 2*spacery + 9*mw_sizey, 0.25, 2*spacery + 14*mw_sizey);
+      fiber_map_lines.push_back(line_v_A1A2_IT);
+      TLine* line_v_A3A4_IT = new TLine(0.25 - 4*mw_sizex, 2*0.025+mw_sizey, 0.25 - 4*mw_sizex, 2*spacery + 9*mw_sizey);
+      fiber_map_lines.push_back(line_v_A3A4_IT);
+      TLine* line_v_A4A5_IT = new TLine(0.25 + 4*mw_sizex, 2*0.025+mw_sizey, 0.25 + 4*mw_sizex, 2*spacery + 9*mw_sizey);
+      fiber_map_lines.push_back(line_v_A4A5_IT);
+
+      TLine* line_h_FR = new TLine(0.75 - 10*mw_sizex, 2*spacery + 9*mw_sizey, 0.75 + 10*mw_sizex, 2*spacery + 9*mw_sizey);
+      fiber_map_lines.push_back(line_h_FR);
+      TLine* line_v_A1A2_FR = new TLine(0.75, 2*0.025 + 9*mw_sizey, 0.75, 2*spacery + 14*mw_sizey);
+      fiber_map_lines.push_back(line_v_A1A2_FR);
+      TLine* line_v_A3A4_FR = new TLine(0.75 - 4*mw_sizex, 2*spacery+mw_sizey, 0.75 - 4*mw_sizex, 2*spacery + 9*mw_sizey);
+      fiber_map_lines.push_back(line_v_A3A4_FR);
+      TLine* line_v_A4A5_FR = new TLine(0.75 + 4*mw_sizex, 2*spacery+mw_sizey, 0.75 + 4*mw_sizex, 2*spacery + 9*mw_sizey);
+      fiber_map_lines.push_back(line_v_A4A5_FR);
+
+      //Veto walls
+      TLine* line_veto_top_IT = new TLine(0.25, 3*spacery + 14*mw_sizey, 0.25, 3*spacery + 15*mw_sizey);
+      fiber_map_lines.push_back(line_veto_top_IT);
+      TLine* line_veto_bottom_left_IT = new TLine(0.25 - 4*gv_sizex, spacery, 0.25 - 4*gv_sizex, spacery+mw_sizey);
+      fiber_map_lines.push_back(line_veto_bottom_left_IT);
+      TLine* line_veto_bottom_right_IT = new TLine(0.25 + 4*gv_sizex, spacery, 0.25 + 4*gv_sizex, spacery+mw_sizey);
+      fiber_map_lines.push_back(line_veto_bottom_right_IT);
+      TLine* line_veto_top_FR = new TLine(0.75, 3*spacery + 14*mw_sizey, 0.75, 3*spacery + 15*mw_sizey);
+      fiber_map_lines.push_back(line_veto_top_FR);
+      TLine* line_veto_bottom_left_FR = new TLine(0.75 - 4*gv_sizex, spacery, 0.75 - 4*gv_sizex, spacery+mw_sizey);
+      fiber_map_lines.push_back(line_veto_bottom_left_FR);
+      TLine* line_veto_bottom_right_FR = new TLine(0.75 + 4*gv_sizex, spacery, 0.75 + 4*gv_sizex, spacery+mw_sizey);
+      fiber_map_lines.push_back(line_veto_bottom_right_FR);
+
+      //X walls
+      TLine* line_xw_left_IT = new TLine(spacerx, 0.5 + 2*xw_sizey, spacerx+2*xw_sizex, 0.5 + 2*xw_sizey);
+      fiber_map_lines.push_back(line_xw_left_IT);
+      TLine* line_xw_right_IT = new TLine(0.5 - spacerx - 2*xw_sizex, 0.5 + 2*xw_sizey, 0.5 - spacerx, 0.5+ 2*xw_sizey);
+      fiber_map_lines.push_back(line_xw_right_IT);
+      TLine* line_xw_left_FR = new TLine(0.5 + spacerx, 0.5 + 2*xw_sizey, 0.5 + spacerx + 2*xw_sizex, 0.5+ 2*xw_sizey);
+      fiber_map_lines.push_back(line_xw_left_FR);
+      TLine* line_xw_right_FR = new TLine(1 - spacerx - 2*xw_sizex, 0.5 + 2*xw_sizey, 1 - spacerx, 0.5 + 2*xw_sizey);
+      fiber_map_lines.push_back(line_xw_right_FR);
+
+      
       const Int_t nRGBs = 6;
       Double_t stops[nRGBs] = { 0.00, 0.20, 0.40, 0.60, 0.80, 1.00 };
       Double_t red[nRGBs]   = { 0.25, 0.00, 0.20, 1.00, 1.00, 0.90 };
@@ -175,7 +221,7 @@ namespace sndisplay
       range_min = xmin; range_max = xmax;
     }
 
-    void draw()
+    void draw(bool display_fiber_map = false)
     {
       if (canvas == NULL)
 	canvas = new TCanvas (Form("C%s",name.Data()), "SuperNEMO calorimeter", 1750, 500);
@@ -223,10 +269,21 @@ namespace sndisplay
       it_label->Draw();
       fr_label->Draw();
 
+
+      //Draw fiber map
+      if(display_fiber_map){
+	      for (auto &line : fiber_map_lines){
+		      line->SetLineColor(kBlack);
+		      line->SetLineStyle(9);
+		      line->SetLineWidth(3);
+		      line->Draw();
+	      }
+      }
+
       canvas->SetEditable(false);
       gSystem->ProcessEvents();
     }
-    
+     
     void reset() {
       for (unsigned int calo=0; calo<ncalo; ++calo)
 	content[calo] = 0;
@@ -295,6 +352,8 @@ namespace sndisplay
     TText *it_label;
     TText *fr_label;
 
+    std::vector<TLine*> fiber_map_lines;
+    
     TCanvas *canvas;
 
     int palette_index;
@@ -305,7 +364,7 @@ void sndisplay_test ()
 {
   sndisplay::calorimeter *sncalo = new sndisplay::calorimeter;
 
-  sncalo->draw();
+  sncalo->draw(true); //just use sncalo->draw() if you don't want fiber mapping
 
   sncalo->setcontent(0, 0.001);
 
